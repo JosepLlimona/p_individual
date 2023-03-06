@@ -1,0 +1,64 @@
+.container {
+    display: grid;
+    grid-template-columns: 10rem auto 10rem;
+    grid-auto-rows: 5rem;
+    align-content: space-between;
+    gap: 3rem;
+  }
+
+  .cardContainer{
+      display: grid;
+      grid-auto-columns: (0, 10rem);
+      grid-auto-flow: column;
+  }
+
+.title{
+    grid-column: 2;
+    align-self: center;
+    text-align: center;
+}
+
+.cardTitle {
+    grid-column: 3;
+    align-self: center;
+    text-align: center;
+}
+
+.mmButton{
+    grid-column: 2;
+    align-self: center;
+    place-self: center;
+    width: 10rem;
+    height: 5rem;
+
+}
+
+.exitButton{
+    grid-column: 3;
+    grid-row: 4;
+    justify-self: end;
+    width: 5rem;
+}
+
+.exitText{
+    grid-column: 5;
+    grid-row: 3;
+    justify-self: end;
+}
+
+.card{
+    grid-row: 2;
+    justify-self: center;
+}
+
+button.mmButton:active{
+    background-color: white;
+}
+
+button.mmButton:hover:not(:active){
+ background-color: rgb(172, 170, 170);
+}
+
+button.exitButton:hover:not(:active){
+ background-color: rgb(214, 30, 30);
+}

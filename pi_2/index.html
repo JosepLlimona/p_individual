@@ -1,24 +1,27 @@
-<!DOCTYPE html> 
+<!DOCTYPE html>
 <html>
-	<head>
-		<link rel="stylesheet" href="./styles/main.css">
-		<script src="./js/loader.js"></script>
-		<script src="./js/game_info.js"></script>
-		<script src="./js/menu_controller.js"></script>
-		<title> My first game - Menu </title>
-	</head>
-	<body>
-		<p class="menu-object" id="title">Memory menu</p>
-		<button class="menu-object" onclick="start_game()"> 
-			Start Game 
+
+<head>
+	<link rel="stylesheet" href="../styles/main.css">
+	<script src="./js/loader.js"></script>
+	<script src="./js/game_info.js"></script>
+	<script src="./js/menu_controller.js"></script>
+	<title> My first game - Menu </title>
+</head>
+
+<body>
+	<div class="container">
+		<h1 class="title" id="title">Memory menu</h1>
+		<button class="mmButton" onclick="start_game()">
+			Start Game
 		</button>
-		<button class="menu-object" onclick="options()"> 
-			Options 
+		<button class="mmButton" onclick="options()">
+			Options
 		</button>
-		<button class="menu-object" onclick="exit()"> 
-			Exit 
+		<button class="exitButton" onclick="exit()">
+			Exit
 		</button>
-	</body>
+	</div>
+</body>
+
 </html>
-
-

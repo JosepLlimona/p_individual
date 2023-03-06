@@ -1,16 +1,17 @@
-function start_game(){
+function start_game() {
 	name = prompt("User name");
 	loadpage("./html/game.html");
 }
 
-function exit (){
-	if (name != ""){
+function exit() {
+	if (name != "") {
 		alert("Leaving " + name + "'s game");
 	}
 	name = "";
+	document.location.href = "../index.html";
 }
 
-function options(){
+function options() {
 	// TODO: Open options menu
 	console.log("Options menu button");
 }

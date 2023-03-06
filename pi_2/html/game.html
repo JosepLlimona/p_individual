@@ -1,19 +1,22 @@
-<!DOCTYPE html> 
+<!DOCTYPE html>
 <html>
-	<head>
-		<link rel="stylesheet" href="../styles/main.css">
-		<script src="../js/game_controller.js"></script>
-		<script src="../js/loader.js"></script>
-		<title> My first game - Game </title>
-	</head>
-	<body>
-		<p class="menu-object" id="title">Memory game</p>
-		<div>
-			<img src="../resources/cb.png" onclick="items[0].do_click()">
-			<img src="../resources/tb.png" onclick="items[1].do_click()">
-			<img src="../resources/tb.png" onclick="items[2].do_click()">
-			<img src="../resources/cb.png" onclick="items[3].do_click()">
-		</div>
-		<a class="menu-object" href="../">GoToMenu</a>
-	</body>
+
+<head>
+	<link rel="stylesheet" href="../../styles/main.css">
+	<script src="../js/game_controller.js"></script>
+	<script src="../js/loader.js"></script>
+	<title> My first game - Game </title>
+</head>
+
+<body>
+	<div class="cardContainer">
+		<h1 class="cardTitle" id="title">Memory game</h1>
+		<img class="card" src="../resources/cb.png" onclick="items[0].do_click()">
+		<img class="card" src="../resources/tb.png" onclick="items[1].do_click()">
+		<img class="card" src="../resources/tb.png" onclick="items[2].do_click()">
+		<img class="card" src="../resources/cb.png" onclick="items[3].do_click()">
+		<a class="exitText" href="../index.html">GoToMenu</a>
+	</div>
+</body>
+
 </html>
