@@ -12,6 +12,8 @@ var game = new Vue({
 		bad_clicks: 0
 	},
 	created: function(){
+		this.num_cards = JSON.parse(localStorage.getItem("config"))["cards"];
+		console.log(this.num_cards);
 		this.username = sessionStorage.getItem("username","unknown");
 		this.items = items.slice(); // Copiem l'array
 		this.items.sort(function(){return Math.random() - 0.5}); // Array aleatòria
