@@ -10,10 +10,30 @@ var game = new Vue({
 		items: [],
 		num_cards: 2,
 		bad_clicks: 0,
-		canPlay: false
+		canPlay: false,
+		penalty: 20,
+		showTime: 1
 	},
 	created: function () {
 		this.num_cards = JSON.parse(localStorage.getItem("config"))["cards"];
+
+		switch (JSON.parse(localStorage.getItem("config"))["dificulty"]) {
+			case "easy":
+				this.penalty = 10;
+				this.showTime = 2;
+				break;
+			case "normal":
+				this.penalty = 20;
+				this.showTime = 1;
+				break;
+			case "hard":
+				this.penalty = 30;
+				this.showTime = 0.3;
+				break;
+			default:
+				console.log("Com has arribat aqui?");
+				break;
+		}
 
 		this.username = sessionStorage.getItem("username", "unknown");
 		this.items = items.slice(); // Copiem l'array
@@ -29,7 +49,7 @@ var game = new Vue({
 				Vue.set(this.current_card, i, { done: false, texture: back });
 			};
 			this.canPlay = true;
-		}, 1000);
+		}, (this.showTime * 1000));
 	},
 	methods: {
 		clickCard: function (i) {
@@ -68,7 +88,7 @@ var game = new Vue({
 	},
 	computed: {
 		score_text: function () {
-			return 100 - this.bad_clicks * 20;
+			return 100 - this.bad_clicks * this.penalty;
 		}
 	}
 });
