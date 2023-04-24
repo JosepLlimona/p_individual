@@ -8,7 +8,6 @@ var menu = new Vue({
             this.choosingMode = true;
         },
         playEstandar: function () {
-            console.log("Works")
             window.location.href = "html/estandargame.html";
         }
     }
