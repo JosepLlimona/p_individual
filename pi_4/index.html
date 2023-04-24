@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <link rel="stylesheet" href="style/main.css">
+    <title> My first game - Game </title>
+</head>
+
+<body>
+    <div id="menu" class="container">
+        <h1 class="title">Memory</h1>
+        <button class="mmButton" v-if="!choosingMode" v-on:click="play()">Jugar</button>
+        <div class="buttonGroup" v-if="choosingMode">
+            <button class="mmButton2" v-if="choosingMode" v-on:click="playEstandar()">Estandar</button>
+            <button class="mmButton2" v-if="choosingMode">Marathon</button>
+        </div>
+        <button class="mmButton">Puntuacions</button>
+        <button class="mmButton">Opcions</button>
+        <button class="mmButton">Carregar</button>
+        <button class="mmButton">Sortir</button>
+    </div>
+</body>
+<script src="https://cdn.jsdelivr.net/npm/vue@2.6.14"></script>
+<script src="js/menu_controller.js"></script>
+
+</html>
