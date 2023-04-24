@@ -1,3 +1,5 @@
+sessionStorage.clear();
+
 var menu = new Vue({
     el: '#menu',
     data: {
@@ -9,6 +11,9 @@ var menu = new Vue({
         },
         playEstandar: function () {
             window.location.href = "html/estandargame.html";
+        },
+        playMarathon: function () {
+            window.location.href = "html/marathongame.html";
         }
     }
 })

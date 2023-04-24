@@ -12,7 +12,7 @@
         <button class="mmButton" v-if="!choosingMode" v-on:click="play()">Jugar</button>
         <div class="buttonGroup" v-if="choosingMode">
             <button class="mmButton2" v-if="choosingMode" v-on:click="playEstandar()">Estandar</button>
-            <button class="mmButton2" v-if="choosingMode">Marathon</button>
+            <button class="mmButton2" v-if="choosingMode" v-on:click="playMarathon()">Marathon</button>
         </div>
         <button class="mmButton">Puntuacions</button>
         <button class="mmButton">Opcions</button>
