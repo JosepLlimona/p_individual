@@ -151,14 +151,16 @@ class GameScene extends Phaser.Scene {
             this.score = 0;
         }
 
-        let marathon_data = {
-            score: this.score,
-            level: this.level,
-        }
         let arrayPartides = [];
         if (localStorage.partides) {
             arrayPartides = JSON.parse(localStorage.partides);
             if (!Array.isArray(arrayPartides)) arrayPartides = [];
+        }
+
+        let marathon_data = {
+            id: arrayPartides.length + 1,
+            score: this.score,
+            level: this.level,
         }
         arrayPartides.push(marathon_data);
         localStorage.partides = JSON.stringify(arrayPartides);

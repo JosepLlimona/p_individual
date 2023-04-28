@@ -4,16 +4,14 @@ var score = new Vue({
         items: localStorage.partides ? JSON.parse(localStorage.partides).slice(0, 10).sort(this.compare) : []
     },
     methods: {
-        test: function () {
-            console.log("Works");
-            console.log(this.items);
+        exit: function () {
+            window.location.href = "../"
         },
     }
 
 })
 
 function compare(a, b) {
-    console.log("Es crida");
     if (a.level > b.level)
         return -1;
     if (a.level < b.level)
