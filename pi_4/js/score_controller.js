@@ -1,7 +1,7 @@
 var score = new Vue({
     el: '#score',
     data: {
-        items: localStorage.partides ? JSON.parse(localStorage.partides).slice(0, 10).sort(this.compare) : []
+        items: localStorage.partides ? JSON.parse(localStorage.partides).sort(this.compare).slice(0, 10) : []
     },
     methods: {
         exit: function () {
