@@ -79,3 +79,11 @@ button.mmButton:hover:not(:active) {
 button.exitButton:hover:not(:active) {
     background-color: rgb(214, 30, 30);
 }
+
+table,
+th,
+td {
+    width: 20%;
+    text-align: center;
+    border: 1px solid black;
+}
