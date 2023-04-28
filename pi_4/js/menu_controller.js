@@ -14,6 +14,9 @@ var menu = new Vue({
         },
         playMarathon: function () {
             window.location.href = "html/marathongame.html";
+        },
+        puntuacio: function () {
+            window.location.href = "html/puntuacio.html";
         }
     }
 })

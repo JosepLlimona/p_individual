@@ -11,6 +11,8 @@ class GameScene extends Phaser.Scene {
         this.num_cards = 2;
         this.level = 1;
         this.timeShow = 1000;
+        this.penalization = 1;
+        this.saveButton;
     }
 
     preload() {
@@ -33,6 +35,7 @@ class GameScene extends Phaser.Scene {
             this.timeShow = marathon_data_retrive.timeShow;
             this.num_cards = marathon_data_retrive.num_cards;
             this.score = marathon_data_retrive.score;
+            this.penalization = marathon_data_retrive.penalization;
         }
 
         this.items = this.items.slice(); // Copiem l'array
@@ -46,6 +49,14 @@ class GameScene extends Phaser.Scene {
         }
 
         this.cameras.main.setBackgroundColor(0xBFFCFF);
+
+        this.saveButton = this.add.text(600, 570, "Guardar Partida", { fill: '#000', fontSize: '20px' });
+        this.saveButton.setBackgroundColor("#ffffff");
+        this.saveButton.setInteractive();
+        this.saveButton.on('pointerover', () => { this.enterButtonHoverState() });
+        this.saveButton.on('pointerout', () => { this.enterButtonResetState() });
+        this.saveButton.on('pointerup', () => { this.enterButtonActiveState() });
+        this.saveButton.on('pointerdown', () => { this.test() });
 
         var x = 250;
         var y = 100;
@@ -80,12 +91,12 @@ class GameScene extends Phaser.Scene {
                     card.disableBody(true, true);
                     if (this.firstClick) {
                         if (this.firstClick.card_id !== card.card_id) {
-                            this.score -= 20;
+                            this.score -= this.penalization;
                             this.firstClick.enableBody(false, 0, 0, true, true);
                             card.enableBody(false, 0, 0, true, true);
                             if (this.score <= 0) {
                                 setTimeout(() => {
-                                    alert("Game Over");
+                                    alert("Final de Partida");
                                     this.finish();
                                 }, 100);
                             }
@@ -94,7 +105,7 @@ class GameScene extends Phaser.Scene {
                             this.correct++;
                             if (this.correct >= this.num_cards) {
                                 setTimeout(() => {
-                                    alert("Level " + this.level + " completed with " + this.score + " points.");
+                                    alert("Nivell " + this.level + " completat amb " + this.score + " punts.");
                                     this.changeLevel();
                                 }, 50);
 
@@ -118,6 +129,7 @@ class GameScene extends Phaser.Scene {
     changeLevel() {
         this.level++;
         this.timeShow -= 150;
+        this.penalization++;
         if (this.level % 5 === 0) {
             this.num_cards++;
             this.timeShow = 1000;
@@ -126,7 +138,8 @@ class GameScene extends Phaser.Scene {
             score: this.score,
             level: this.level,
             timeShow: this.timeShow,
-            num_cards: this.num_cards
+            num_cards: this.num_cards,
+            penalization: this.penalization
         };
 
         sessionStorage.setItem("MarathonData", JSON.stringify(marathon_data));
@@ -134,13 +147,37 @@ class GameScene extends Phaser.Scene {
     }
 
     finish() {
+        if (this.score < 0) {
+            this.score = 0;
+        }
 
         let marathon_data = {
             score: this.score,
             level: this.level,
         }
-        localStorage.setItem("MarathonData", JSON.stringify(marathon_data));
+        let arrayPartides = [];
+        if (localStorage.partides) {
+            arrayPartides = JSON.parse(localStorage.partides);
+            if (!Array.isArray(arrayPartides)) arrayPartides = [];
+        }
+        arrayPartides.push(marathon_data);
+        localStorage.partides = JSON.stringify(arrayPartides);
         window.location.href = "../";
     }
 
+    test() {
+        this.enterButtonResetState();
+        alert("Partida Guardada");
+        this.finish();
+    }
+
+    enterButtonHoverState() {
+        this.saveButton.setStyle({ fill: '#696969', fontSize: '20px' });
+    }
+    enterButtonResetState() {
+        this.saveButton.setStyle({ fill: '#000', fontSize: '20px' });
+    }
+    enterButtonActiveState() {
+        this.saveButton.setStyle({ fill: '#696969', fontSize: '16px' });
+    }
 }
