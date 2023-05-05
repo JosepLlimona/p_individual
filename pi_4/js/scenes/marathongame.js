@@ -56,7 +56,7 @@ class GameScene extends Phaser.Scene {
         this.saveButton.on('pointerover', () => { this.enterButtonHoverState() });
         this.saveButton.on('pointerout', () => { this.enterButtonResetState() });
         this.saveButton.on('pointerup', () => { this.enterButtonActiveState() });
-        this.saveButton.on('pointerdown', () => { this.test() });
+        this.saveButton.on('pointerdown', () => { this.save() });
 
         var x = 250;
         var y = 100;
@@ -130,7 +130,7 @@ class GameScene extends Phaser.Scene {
         this.level++;
         this.timeShow -= 150;
         this.penalization++;
-        if (this.level % 5 === 0) {
+        if (this.level % 5 === 0 && this.num_cards < 6) {
             this.num_cards++;
             this.timeShow = 1000;
         }
@@ -167,7 +167,7 @@ class GameScene extends Phaser.Scene {
         window.location.href = "../";
     }
 
-    test() {
+    save() {
         this.enterButtonResetState();
         alert("Partida Guardada");
         this.finish();

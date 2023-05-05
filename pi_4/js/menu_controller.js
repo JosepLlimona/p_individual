@@ -17,6 +17,9 @@ var menu = new Vue({
         },
         puntuacio: function () {
             window.location.href = "html/puntuacio.html";
+        },
+        options: function () {
+            window.location.href = "html/options.html";
         }
     }
 })
