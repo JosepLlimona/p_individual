@@ -20,6 +20,12 @@ var menu = new Vue({
         },
         options: function () {
             window.location.href = "html/options.html";
+        },
+        carregar: function () {
+            window.location.href = "html/carregar.html";
+        },
+        exit: function () {
+            window.location.href = "../";
         }
     }
 })

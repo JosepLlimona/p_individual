@@ -14,10 +14,10 @@
             <button class="mmButton2" v-if="choosingMode" v-on:click="playEstandar()">Estandar</button>
             <button class="mmButton2" v-if="choosingMode" v-on:click="playMarathon()">Marathon</button>
         </div>
-        <button class="mmButton">Carregar</button>
+        <button class="mmButton" v-on:click="carregar()">Carregar</button>
         <button class="mmButton" v-on:click="puntuacio()">Puntuacions</button>
         <button class="mmButton" v-on:click="options()">Opcions</button>
-        <button class="mmButton">Sortir</button>
+        <button class="mmButton" v-on:click="exit()">Sortir</button>
     </div>
 </body>
 <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14"></script>
