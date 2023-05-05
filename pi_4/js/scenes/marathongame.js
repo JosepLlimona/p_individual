@@ -13,6 +13,7 @@ class GameScene extends Phaser.Scene {
         this.timeShow = 1000;
         this.penalization = 1;
         this.saveButton;
+        this.levelsCompleted = 0;
     }
 
     preload() {
@@ -36,8 +37,15 @@ class GameScene extends Phaser.Scene {
             this.num_cards = marathon_data_retrive.num_cards;
             this.score = marathon_data_retrive.score;
             this.penalization = marathon_data_retrive.penalization;
+            this.levelsCompleted = marathon_data_retrive.levelsCompleted;
         }
 
+        let config = localStorage.getItem("config");
+        if (config && this.levelsCompleted === 0) {
+            let config_data = JSON.parse(config);
+            this.level = config_data.level;
+            this.calculateLevel();
+        }
         this.items = this.items.slice(); // Copiem l'array
         this.items.sort(function () { return Math.random() - 0.5 }); // Array aleatòria
         this.items = this.items.slice(0, this.num_cards); // Agafem els primers numCards elements
@@ -92,26 +100,22 @@ class GameScene extends Phaser.Scene {
                     if (this.firstClick) {
                         if (this.firstClick.card_id !== card.card_id) {
                             this.score -= this.penalization;
-                            this.firstClick.enableBody(false, 0, 0, true, true);
-                            card.enableBody(false, 0, 0, true, true);
+                            setTimeout(() => {
+                                this.firstClick.enableBody(false, 0, 0, true, true);
+                                card.enableBody(false, 0, 0, true, true);
+                                this.firstClick = null;
+                            }, 100);
                             if (this.score <= 0) {
-                                setTimeout(() => {
-                                    alert("Final de Partida");
-                                    this.finish();
-                                }, 100);
+                                setTimeout(function () { alert("Game Over"); window.location.href = "../"; }, 50);
                             }
                         }
                         else {
                             this.correct++;
                             if (this.correct >= this.num_cards) {
-                                setTimeout(() => {
-                                    alert("Nivell " + this.level + " completat amb " + this.score + " punts.");
-                                    this.changeLevel();
-                                }, 50);
-
+                                setTimeout(() => { alert("You win with " + this.score + " points."); this.changeLevel() }, 50);
                             }
+                            this.firstClick = null;
                         }
-                        this.firstClick = null;
                     }
                     else {
                         this.firstClick = card;
@@ -128,8 +132,11 @@ class GameScene extends Phaser.Scene {
 
     changeLevel() {
         this.level++;
-        this.timeShow -= 150;
+        this.timeShow -= 200;
+        if (this.timeShow === 0)
+            this.timeShow = 0;
         this.penalization++;
+        this.levelsCompleted++;
         if (this.level % 5 === 0 && this.num_cards < 6) {
             this.num_cards++;
             this.timeShow = 1000;
@@ -139,7 +146,8 @@ class GameScene extends Phaser.Scene {
             level: this.level,
             timeShow: this.timeShow,
             num_cards: this.num_cards,
-            penalization: this.penalization
+            penalization: this.penalization,
+            levelsCompleted: this.levelsCompleted
         };
 
         sessionStorage.setItem("MarathonData", JSON.stringify(marathon_data));
@@ -150,21 +158,41 @@ class GameScene extends Phaser.Scene {
         if (this.score < 0) {
             this.score = 0;
         }
+        if (this.levelsCompleted > 0) {
 
-        let arrayPartides = [];
-        if (localStorage.partides) {
-            arrayPartides = JSON.parse(localStorage.partides);
-            if (!Array.isArray(arrayPartides)) arrayPartides = [];
-        }
+            let arrayPartides = [];
+            if (localStorage.partides) {
+                arrayPartides = JSON.parse(localStorage.partides);
+                if (!Array.isArray(arrayPartides)) arrayPartides = [];
+            }
 
-        let marathon_data = {
-            id: arrayPartides.length + 1,
-            score: this.score,
-            level: this.level,
+            let marathon_data = {
+                id: arrayPartides.length + 1,
+                score: this.score,
+                level: this.level,
+            }
+            arrayPartides.push(marathon_data);
+            localStorage.partides = JSON.stringify(arrayPartides);
         }
-        arrayPartides.push(marathon_data);
-        localStorage.partides = JSON.stringify(arrayPartides);
         window.location.href = "../";
+    }
+
+    calculateLevel(level) {
+        if (this.level % 6 === 0) {
+            this.num_cards = this.level / 5 + 1;
+        }
+        else if (this.level < 5) {
+            this.num_cards = 2;
+            this.timeShow -= 200 * (this.level - 1);
+            this.penalization = this.level;
+        }
+        else {
+            this.num_cards = this.level / 5 + 1;
+            this.timeShow -= 200 * (this.level % 6) - 1;
+            if (this.timeShow === 0)
+                this.timeShow = 0;
+            this.penalization = this.level;
+        }
     }
 
     save() {

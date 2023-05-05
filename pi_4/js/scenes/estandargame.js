@@ -30,7 +30,6 @@ class GameScene extends Phaser.Scene {
         console.log(config);
         if (config) {
             let config_data = JSON.parse(config);
-            console.log(config_data);
             this.num_cards = config_data.cards;
             if (config_data.dificulty === "easy") {
                 this.showTime = 1500;

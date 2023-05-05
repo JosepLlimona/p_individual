@@ -1,10 +1,9 @@
 var options = function () {
-	// Aquí dins hi ha la part privada de l'objecte
 	var options_data = {
-		cards: 2, dificulty: "hard"
+		cards: 2, dificulty: "hard", level: 1
 	};
 	var load = function () {
-		var json = localStorage.getItem("config") || '{"cards":2,"dificulty":"normal"}';
+		var json = localStorage.getItem("config") || '{"cards":2,"dificulty":"normal", "level:1"}';
 		options_data = JSON.parse(json);
 	};
 	var save = function () {
@@ -15,18 +14,24 @@ var options = function () {
 		el: "#options_id",
 		data: {
 			num: 2,
-			dificulty: "normal"
+			dificulty: "normal",
+			level: 1
 		},
 		created: function () {
 			this.num = options_data.cards;
 			this.dificulty = options_data.dificulty;
+			this.level = options_data.level;
 		},
 		watch: {
 			num: function (value) {
 				if (value < 2)
 					this.num = 2;
-				else if (value > 4)
-					this.num = 4;
+				else if (value > 6)
+					this.num = 6;
+			},
+			level: function (value) {
+				if (value < 1)
+					this.level = 1
 			}
 		},
 		methods: {
@@ -37,6 +42,7 @@ var options = function () {
 			save: function () {
 				options_data.cards = this.num;
 				options_data.dificulty = this.dificulty;
+				options_data.level = this.level;
 				save();
 				window.location.href = "../";
 			},
@@ -58,12 +64,3 @@ var options = function () {
 		}
 	};
 }();
-
-console.log(options.getOptionsString());
-console.log(options.getNumOfCards());
-console.log(options.getDificulty());
-console.log(options.options_data);
-
-
-
-
